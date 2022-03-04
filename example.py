@@ -1,4 +1,4 @@
-from pycomchem import *
+from comchem import *
 
 name = detail("9003-07-0", "properties")
 print(name)
