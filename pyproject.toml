@@ -1,5 +1,27 @@
-[build-system]
-requires = [
-    "bs4",
-    "urllib"
+[tool.poetry]
+name = "PyComChem"
+version = "0.1"
+description = "Python library for accessing the CommonChemistry.org API"
+authors = ["Stuart Chalk <schalk@unf.edu>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/stuchalk/pyComChem"
+repository = "https://github.com/stuchalk/pyComChem"
+keywords = ["common chemistry", "api", "cas"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent"
 ]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+bs4 = "0.0.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+flake8 = "^3.8.4"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
