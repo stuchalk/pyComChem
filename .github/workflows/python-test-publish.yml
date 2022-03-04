@@ -18,8 +18,8 @@ on:
 
 jobs:
   deploy:
-    name: Test on ${{ matrix.os}}$
-    runs-on: ${{ matrix.os}}$
+    name: Test on ${{ matrix.os}}
+    runs-on: ${{ matrix.os}}
     strategy:
         fail-fast: false
         matrix:
