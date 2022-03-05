@@ -14,7 +14,6 @@ env:
 
 on:
   release:
-    types: [published]
 
 jobs:
   deploy:
@@ -23,7 +22,7 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-          os: [ubuntu-latest, windows-latest, macos-latest]
+          os: [ubuntu-latest]
 
     steps:
     - uses: actions/checkout@v2
