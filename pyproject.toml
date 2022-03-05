@@ -14,7 +14,7 @@ classifiers = [
     "Operating System :: OS Independent"
 ]
 packages = [
-    { include: "comchem" }
+    { include = "comchem" }
 ]
 [tool.poetry.dependencies]
 python = "^3.7"
