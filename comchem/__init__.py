@@ -46,9 +46,11 @@ def query(term='', exact=False):
     :return: string
     """
     url = ''
+    if _validkey(term):
+        url = ccpath + 'search?q=InChIKey=' + term  # InChIKey search
     if exact is False:
         url = ccpath + 'search?q=' + term + '*'
-    elif term[-1:] == '*' or exact is True:
+    elif term[-1:] == '*' or exact is True:  # is the last char of term a '*'?
         url = ccpath + 'search?q=' + term
     respnse = urlopen(url)
     jsn = json.loads(respnse.read())
@@ -87,6 +89,39 @@ def key2cas(key):
         return ''
 
 
+def chemimg(chemid='', imgtype='svg'):
+    """
+    Get an image for a compound from either a CAS Registry Number, InChIKey, SMILES, or name
+    :param chemid: the CAS Registry Number, InChIKey, SMILES, or name
+    :param imgtype: the type of image file to produce - svg, png, or ps
+    :return:
+    """
+    # check identifier for type so checking can be done
+    if chemid == '':
+        return False
+    if _validkey(chemid):
+        casrn = key2cas(chemid)
+    elif not _validcas(chemid):
+        casrn = query(chemid, True)
+    else:
+        casrn = chemid
+    if not casrn:
+        return casrn
+    # get svg data and save
+    svg = detail(casrn, "image")
+    f = open(casrn + ".svg", "w")
+    f.write(svg)
+    f.close()
+    if imgtype == 'png':
+        cairosvg.svg2png(url=casrn + ".svg", write_to=casrn + ".png")
+    elif imgtype == 'ps':
+        cairosvg.svg2ps(url=casrn + ".svg", write_to=casrn + ".ps")
+    if imgtype == 'png' or imgtype == 'ps':
+        if os.path.exists(casrn + ".svg"):
+            os.remove(casrn + ".svg")
+    return True
+
+
 def _validkey(key):
     """
     Validate and IUPAC InChIKey
@@ -123,36 +158,3 @@ def _validcas(cas):
         return True
     else:
         return False
-
-
-def chemimg(chemid='', imgtype='svg'):
-    """
-    Get an image for a compound from either a CAS Registry Number, InChIKey, SMILES, or name
-    :param chemid: the CAS Registry Number, InChIKey, SMILES, or name
-    :param imgtype: the type of image file to produce - svg, png, or ps
-    :return:
-    """
-    # check identifier for type so checking can be done
-    if chemid == '':
-        return False
-    if _validkey(chemid):
-        casrn = key2cas(chemid)
-    elif not _validcas(chemid):
-        casrn = query(chemid, True)
-    else:
-        casrn = chemid
-    if not casrn:
-        return casrn
-    # get svg data and save
-    svg = detail(casrn, "image")
-    f = open(casrn + ".svg", "w")
-    f.write(svg)
-    f.close()
-    if imgtype == 'png':
-        cairosvg.svg2png(url=casrn + ".svg", write_to=casrn + ".png")
-    elif imgtype == 'ps':
-        cairosvg.svg2ps(url=casrn + ".svg", write_to=casrn + ".ps")
-    if imgtype == 'png' or imgtype == 'ps':
-        if os.path.exists(casrn + ".svg"):
-            os.remove(casrn + ".svg")
-    return True
