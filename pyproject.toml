@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "PyComChem"
-version = "0.1"
+version = "0.2"
 description = "Python library for accessing the CommonChemistry.org API"
 authors = ["Stuart Chalk <schalk@unf.edu>"]
 license = "MIT"
