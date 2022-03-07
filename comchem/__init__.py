@@ -6,8 +6,8 @@ from bs4 import BeautifulSoup
 from urllib.request import urlopen
 
 ccpath = 'https://commonchemistry.cas.org/api/'
-fields = ['name', 'image', 'inchi', 'inchikey', 'smile', 'canonicalSmile', 'molecularFormula', 'molecularMass',
-          'properties', 'synonyms', 'replaceRns', 'hasMolefile']
+fields = ['name', 'image', 'inchi', 'inchikey', 'smile', 'canonicalSmile', 'molecularFormula',
+          'molecularMass', 'properties', 'synonyms', 'replaceRns', 'hasMolefile']
 
 
 def detail(casrn, field="all"):
@@ -48,7 +48,7 @@ def query(term='', exact=False):
     url = ''
     if _validkey(term):
         url = ccpath + 'search?q=InChIKey=' + term  # InChIKey search
-    if exact is False:
+    elif exact is False and term[-1:] != '*':
         url = ccpath + 'search?q=' + term + '*'
     elif term[-1:] == '*' or exact is True:  # is the last char of term a '*'?
         url = ccpath + 'search?q=' + term

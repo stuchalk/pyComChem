@@ -1,12 +1,14 @@
 from comchem import *
+import json
 
-# name = detail("9003-07-0", "properties")
-# print(name)
-#
-# find = query("trifluoro*")
-# print(find)
+cmpd = detail("9003-07-0", "properties")
+print(json.dumps(cmpd, indent=4))
+exit()
 
-# find = key2cas('UHOVQNZJYSORNB-UHFFFAOYSA-N')
-# print(find)
+hits = query("trifluoro*")
+print(hits)
+
+casrn = key2cas('UHOVQNZJYSORNB-UHFFFAOYSA-N')
+print(casrn)
 
 chemimg("71-43-2", 'png')
