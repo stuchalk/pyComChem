@@ -128,7 +128,7 @@ def _validkey(key):
     :param key: a string to be validated as an IUPAC InChIKey
     :return: bool
     """
-    test = re.search(r'^[A-Z]{14}-[A-Z]{8}[SN][A]-[A-Z]$', key)
+    test = re.search(r'^[A-Z]{14}-[A-Z]{8}[SN]A-[A-Z]$', key)
     if test is None:
         return False
     return True
