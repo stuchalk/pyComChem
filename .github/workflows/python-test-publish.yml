@@ -9,8 +9,8 @@
 name: Upload Python Package to Test-PyPI
 
 env:
-  PYTHON_MAIN_VERSION: 3.7
-  POETRY_VERSION: 1.1.4
+  PYTHON_MAIN_VERSION: 3.10
+  POETRY_VERSION: 1.2.2
 
 on:
   release:
@@ -21,16 +21,17 @@ jobs:
     name: Test on ${{ matrix.os}}
     runs-on: ${{ matrix.os}}
     strategy:
-        fail-fast: false
-        matrix:
-          os: [ubuntu-latest]
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+      python-version: ["3.10"]
 
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.7'
+        python-version: '3.10'
         
     - name: Install dependencies
       run: |
