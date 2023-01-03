@@ -7,7 +7,7 @@ license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/stuchalk/pyComChem"
 repository = "https://github.com/stuchalk/pyComChem"
-keywords = ["common chemistry", "api", "cas"]
+keywords = ["common chemistry", "api", "cas", "registry number"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
