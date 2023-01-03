@@ -37,10 +37,10 @@ jobs:
         python -m pip install poetry==${{ env.POETRY_VERSION }}
         poetry install
         
-    - name: Build Python package and Upload to TestPyPi
+    - name: Build Python package and Upload to PyPi
       env:
           PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
       run: |
           poetry update
           poetry build
-          poetry publish -r testpypi --username "__token__" --password $PYPI_TOKEN
+          poetry publish --username "__token__" --password $PYPI_TOKEN
