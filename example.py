@@ -1,24 +1,26 @@
 from comchem import *
 import json
 
-rundef = "cas2png"
 
-if rundef == "props":
+def props(casrn='57-83-0'):
     # gets the properties for the CASRN requested
-    cmpd = detail("9003-07-0", "properties")
+    cmpd = detail(casrn, "properties")
     print(json.dumps(cmpd, indent=4))
-    exit()
 
-if rundef == "trifl":
+def trifl():
     # gets a list of all compounds starting with "trifluoro*"
     hits = query("trifluoro*")
     print(hits)
 
-if rundef == "key2cas":
+def key2cas():
     # convert a substance CASRN into its InChIKey
+    # uses code to find the lowest molecular weight hit for the InChIkey
     casrn = key2cas('UHOVQNZJYSORNB-UHFFFAOYSA-N')
     print(casrn)
 
-if rundef == "cas2png":
+def cas2png(casrn='57-83-0'):
     # create a png of a molecule based on its CASRN (via SVG from ComChem)
-    chemimg("57-83-0", 'png')
+    chemimg(casrn, 'png')
+    print('image saved to ' + casrn + '.py')
+
+trifl()

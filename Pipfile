@@ -5,7 +5,6 @@ name = "pypi"
 
 [packages]
 cairosvg = "==2.7.0"
-bs4 = "*"
 urllib3 = "*"
 
 [dev-packages]

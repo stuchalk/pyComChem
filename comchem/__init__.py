@@ -2,7 +2,6 @@ import json
 import re
 import cairosvg
 import os
-from bs4 import BeautifulSoup
 from urllib.request import urlopen
 
 ccpath = 'https://commonchemistry.cas.org/api/'
@@ -18,7 +17,7 @@ def detail(casrn, field="all"):
     :param field: field to return or all fields (default)
     :return mixed
     """
-    if not _validcas(casrn):
+    if not __validcas(casrn):
         return ''  # false
     url = ccpath + 'detail?cas_rn=' + casrn
     respnse = urlopen(url)
@@ -46,7 +45,7 @@ def query(term='', exact=False):
     :return: string
     """
     url = ''
-    if _validkey(term):
+    if __validkey(term):
         url = ccpath + 'search?q=InChIKey=' + term  # InChIKey search
     elif exact is False and term[-1:] != '*':
         url = ccpath + 'search?q=' + term + '*'
@@ -57,8 +56,7 @@ def query(term='', exact=False):
     out = []  # false
     if jsn['results']:
         for hit in jsn['results']:
-            textname = BeautifulSoup(hit["name"], "lxml").text
-            out.append({"textname": textname, "htmlname": hit["name"].lower(), "rn": hit["rn"]})
+            out.append({"name": hit["name"].lower(), "rn": hit["rn"]})
     return out
 
 
@@ -67,7 +65,7 @@ def key2cas(key):
     Find the CAS Registry Number of a chemical substance using an IUPAC InChIKey
     :param key - a valid InChIKey
     """
-    if _validkey(key):
+    if __validkey(key):
         hits = query('InChIKey=' + key, True)
         if hits:
             if len(hits) == 1:
@@ -92,6 +90,7 @@ def key2cas(key):
 def chemimg(chemid='', imgtype='svg'):
     """
     Get an image for a compound from either a CAS Registry Number, InChIKey, SMILES, or name
+    Uses carioSVG (https://www.courtbouillon.org/cairosvg)
     :param chemid: the CAS Registry Number, InChIKey, SMILES, or name
     :param imgtype: the type of image file to produce - svg, png, or ps
     :return:
@@ -99,9 +98,9 @@ def chemimg(chemid='', imgtype='svg'):
     # check identifier for type so checking can be done
     if chemid == '':
         return False
-    if _validkey(chemid):
+    if __validkey(chemid):
         casrn = key2cas(chemid)
-    elif not _validcas(chemid):
+    elif not __validcas(chemid):
         casrn = query(chemid, True)
     else:
         casrn = chemid
@@ -122,7 +121,7 @@ def chemimg(chemid='', imgtype='svg'):
     return True
 
 
-def _validkey(key):
+def __validkey(key):
     """
     Validate and IUPAC InChIKey
     :param key: a string to be validated as an IUPAC InChIKey
@@ -134,7 +133,7 @@ def _validkey(key):
     return True
 
 
-def _validcas(cas):
+def __validcas(cas):
     """
     Validate a CAS Registry Number
     See: https://en.wikipedia.org/wiki/CAS_Registry_Number#Format
