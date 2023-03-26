@@ -17,3 +17,7 @@ Future improvements will include
 
 - molfile - download the mol file of a compound
 - additional specialized functions
+
+### Presentation
+“Supporting the global community with CAS common chemistry” Andrea Jacobs, Stuart Chalk, Leah McEwen, 
+Amy Liu, Ka Wing Kelly Cao paper presented at the ACS Virtual Meeting, March 2022
