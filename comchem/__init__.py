@@ -62,7 +62,7 @@ def query(term='', exact=False):
 
 def key2cas(key):
     """
-    Find the CAS Registry Number of a chemical substance using an IUPAC InChIKey
+    Find the CAS registry number of a chemical substance using an IUPAC InChIKey
     :param key - a valid InChIKey
     """
     if __validkey(key):
@@ -115,6 +115,7 @@ def chemimg(chemid='', imgtype='svg'):
         cairosvg.svg2png(url=casrn + ".svg", write_to=casrn + ".png")
     elif imgtype == 'ps':
         cairosvg.svg2ps(url=casrn + ".svg", write_to=casrn + ".ps")
+    # removing temporary SVG file
     if imgtype == 'png' or imgtype == 'ps':
         if os.path.exists(casrn + ".svg"):
             os.remove(casrn + ".svg")
@@ -123,7 +124,7 @@ def chemimg(chemid='', imgtype='svg'):
 
 def __validkey(key):
     """
-    Validate and IUPAC InChIKey
+    Validate an IUPAC InChIKey using a regular expression
     :param key: a string to be validated as an IUPAC InChIKey
     :return: bool
     """
@@ -135,7 +136,7 @@ def __validkey(key):
 
 def __validcas(cas):
     """
-    Validate a CAS Registry Number
+    Validate a CAS registry number, using a regular expression and its calculated checksum
     See: https://en.wikipedia.org/wiki/CAS_Registry_Number#Format
     :param cas: a string to be validated as a CAS Registry Number
     :return: bool
