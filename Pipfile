@@ -4,8 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-cairosvg = "==2.7.0"
-urllib3 = "*"
+cairosvg = ">=2.7"
+urllib3 = ">2.0"
 
 [dev-packages]
 
