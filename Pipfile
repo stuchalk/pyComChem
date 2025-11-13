@@ -4,11 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-cairosvg = ">=2.7"
-urllib3 = ">2.0"
-pillow = ">=10.2.0"
+cairosvg = ">=2.8.2"
+urllib3 = ">=2.5.0"
+python-dotenv = ">=1.2.1"
 
 [dev-packages]
 
 [requires]
-python_version = "3.11"
+python_version = "3.13"
