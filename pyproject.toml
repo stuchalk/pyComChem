@@ -17,7 +17,7 @@ packages = [
     { include = "comchem" }
 ]
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.11"
 cairosvg = "^2.5.2"
 
 [tool.poetry.dev-dependencies]

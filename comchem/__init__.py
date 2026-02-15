@@ -2,8 +2,11 @@ import json
 import re
 import cairosvg
 import os
-from urllib.request import urlopen
+import urllib.request
 
+# config options
+apikey = os.environ.get('CAS_API_KEY')
+headers = {'X-API-KEY': apikey}
 ccpath = 'https://commonchemistry.cas.org/api/'
 fields = ['name', 'image', 'inchi', 'inchikey', 'smile', 'canonicalSmile', 'molecularFormula',
           'molecularMass', 'properties', 'synonyms', 'replaceRns', 'hasMolefile']
@@ -20,8 +23,9 @@ def detail(casrn, field="all"):
     if not __validcas(casrn):
         return ''  # false
     url = ccpath + 'detail?cas_rn=' + casrn
-    respnse = urlopen(url)
-    jsn = json.loads(respnse.read())
+    req = urllib.request.Request(url, headers=headers)
+    with urllib.request.urlopen(req) as response:
+        jsn = json.loads(response.read())
     if field == "all":
         return jsn
     elif field in fields:
@@ -51,8 +55,9 @@ def query(term='', exact=False):
         url = ccpath + 'search?q=' + term + '*'
     elif term[-1:] == '*' or exact is True:  # is the last char of term a '*'?
         url = ccpath + 'search?q=' + term
-    respnse = urlopen(url)
-    jsn = json.loads(respnse.read())
+    req = urllib.request.Request(url, headers=headers)
+    with urllib.request.urlopen(req) as response:
+        jsn = json.loads(response.read())
     out = []  # false
     if jsn['results']:
         for hit in jsn['results']:

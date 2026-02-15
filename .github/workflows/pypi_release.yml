@@ -9,8 +9,8 @@
 name: Upload Python Package to PyPI
 
 env:
-  PYTHON_MAIN_VERSION: 3.10
-  POETRY_VERSION: 1.2.2
+  PYTHON_MAIN_VERSION: 3.14
+  POETRY_VERSION: 2.3.2
 
 on:
   release:
@@ -24,11 +24,11 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        python-version: ['3.10']
+        python-version: ['3.11', '3.12', '3.13', '3.14']
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v6
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v6
       with:
         python-version: ${{ matrix.python-version }}
         

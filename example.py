@@ -32,6 +32,7 @@ for sub in subs:
     out = props(sub)
     print(json.dumps(out, indent=4))
 
+
 # key2cas('UHOVQNZJYSORNB-UHFFFAOYSA-N')
 # trifl()
 # cas2png('57-83-0')
